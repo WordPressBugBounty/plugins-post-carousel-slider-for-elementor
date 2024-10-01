@@ -1,12 +1,14 @@
 Post Carousel Slider for Elementor
 Tags: elementor post carousel, post carousel elementor, elementor post slider, post slider wordpress, post slider, post carousel, wordpress post carousel
 Requires at least: 5.0
-Tested up to: 6.4.3
-Stable tag: /trunk
-Requires PHP: 5.4
+Tested up to: 6.6.3
+Stable tag: 1.4.0
+Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Contributors: plugindevs
+
+Post Carousel Slider for Elementor, Elementor Post Slider, Elementor Post Carousel help to add post carousel with Elementor
 
 == Description ==
 **Post Carousel Slider for Elementor** Lets you display your WordPress **Posts as Carousel Slider**. You can now show your posts using this plugin easily to your users as a **Carousel Slider**. It helps you to create beautiful **Post carousels** with Images, Post Title, Post Excerpt, Read More Button in a nice sliding manner.
@@ -86,6 +88,17 @@ There is also a [Pro Version](https://plugin-devs.com/product/post-carousel-slid
 3. Screenshot Three
 
 == Changelog ==
+
+= 1.4.0 (10-01-24) =
+# Compatible with WordPress Latest Version
+# Compatible with Elementor Latest Version
+# Compatible with Elementor PRO Latest Version
+# Remove Old Support Contact Form from Admin Submenu
+# Add direct WP.org Support Forum Link from Admin Submenu through Freemius 
+# Remove Support for Old PHP 5.4 and upgrade PHP Support from 7.0
+# Remove Support for Old Elementor 2.0 and upgrade Elementor Support from 3.0
+# Implement Freemius
+
 = 1.3.2 (02-16-24) =
 # Tweak CSS
 # Compatible with WordPress Latest Version

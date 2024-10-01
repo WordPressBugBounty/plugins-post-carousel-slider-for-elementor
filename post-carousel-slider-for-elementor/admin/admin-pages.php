@@ -1,7 +1,6 @@
 <?php
 add_action('admin_menu', 'wb_ps_menu_page');
 function wb_ps_menu_page(){
-	global $submenu;
 	add_menu_page(
 		'Post Carousel Slider for Elementor',
 		'Post Carousel Slider for Elementor',
@@ -29,15 +28,13 @@ function wb_ps_menu_page(){
 		'wbel-ps-custom-js',
 		'wbel_ps_js_callback' 
 	);
-
-	$link_text = '<span class="wb_ps-up-pro-link" style="font-weight: bold; color: #FCB214">Upgrade To Pro</span>';
-			
-	$submenu["wbel-post-slider"][4] = array( $link_text, 'manage_options' , WB_PS_PRO_LINK );
 	
-	return $submenu;
 }
 
-function wbel_ps_callback(){}
+function wbel_ps_callback(){
+	wp_redirect( admin_url( 'admin.php?page=wbel-ps-custom-css' ) );
+	exit();
+}
 function wbel_ps_css_callback(){
 	 // The default message that will appear
     $custom_css_default = __( '/*

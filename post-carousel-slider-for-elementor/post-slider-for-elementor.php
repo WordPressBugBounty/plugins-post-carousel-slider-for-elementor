@@ -5,10 +5,13 @@
  * Author: Plugin Devs
  * Author URI: https://plugin-devs.com/
  * Plugin URI: https://plugin-devs.com/product/post-carousel-slider-for-elementor/
- * Version: 1.3.2
+ * Version: 1.4.0
  * License: GPLv2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: post-slider-for-elementor
+ * 
+ * Elementor tested up to: 3.24.5
+ * Elementor Pro tested up to: 3.24.3
 */
 
  // Exit if accessed directly.
@@ -45,21 +48,20 @@ class WB_POST_SLIDER
  		define( 'WB_PS_MAIN_FILE', __FILE__ );
  		define( 'WB_PS_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'WB_PS_URL', plugin_dir_url( __FILE__ ) ) ;
-		define( 'WB_PS_VERSION', '1.3.0' ) ; //Plugin Version
-		define( 'WB_PS_MIN_ELEMENTOR_VERSION', '2.0.0' ) ; //MINIMUM ELEMENTOR Plugin Version
-		define( 'WB_PS_MIN_PHP_VERSION', '5.4' ) ; //MINIMUM PHP Plugin Version
+		define( 'WB_PS_VERSION', '1.4.0' ) ; //Plugin Version
+		define( 'WB_PS_MIN_ELEMENTOR_VERSION', '3.0.0' ) ; //MINIMUM ELEMENTOR Plugin Version
+		define( 'WB_PS_MIN_PHP_VERSION', '7.0' ) ; //MINIMUM PHP Plugin Version
 		define( 'WB_PS_PRO_LINK', 'https://plugin-devs.com/product/post-carousel-slider-for-elementor/' ) ; //Pro Link
  	}
 
  	//Include all files
  	public function include_files(){
 
+		require_once( WB_PS_PATH . 'freemius.php' );
  		require_once( WB_PS_PATH . 'functions.php' );
  		require_once( WB_PS_PATH . 'admin/post-slider-utils.php' );
  		if( is_admin() ){
  			require_once( WB_PS_PATH . 'admin/admin-pages.php' );	
- 			require_once( WB_PS_PATH . 'class-plugin-deactivate-feedback.php' );	
- 			require_once( WB_PS_PATH . 'support-page/class-support-page.php' );	
 			require_once( WB_PS_PATH . 'class-plugin-review.php');
  		}
  		//require_once( WB_PS_PATH . 'admin/notices/support.php' );
@@ -86,14 +88,6 @@ class WB_POST_SLIDER
 
 function wb_post_slider_register_function(){
 	$wb_post_slider = WB_POST_SLIDER::getInstance();
-	if( is_admin() ){
-		$wb_ps_feedback = new WB_PS_Usage_Feedback(
-			__FILE__,
-			'webbuilders03@gmail.com',
-			false,
-			true
-		);
-	}
 }
 add_action('plugins_loaded', 'wb_post_slider_register_function');
 
@@ -109,35 +103,6 @@ function wb_ps_display_custom_css(){
 	}
 	echo $css;
 }
-
-
-/**
- * Submenu filter function. Tested with Wordpress 4.1.1
- * Sort and order submenu positions to match your custom order.
- *
- */
-function wb_ps_order_submenu( $menu_ord ) {
-
-  global $submenu;
-
-  // Enable the next line to see a specific menu and it's order positions
-  //echo '<pre>'; print_r( $submenu['wbel-post-slider'] ); echo '</pre>'; exit();
-
-  $arr = array();
-
-  $arr[] = $submenu['wbel-post-slider'][1];
-  $arr[] = $submenu['wbel-post-slider'][2];
-  $arr[] = $submenu['wbel-post-slider'][5];
-  $arr[] = $submenu['wbel-post-slider'][4];
-
-  $submenu['wbel-post-slider'] = $arr;
-
-  return $menu_ord;
-
-}
-
-// add the filter to wordpress
-add_filter( 'custom_menu_order', 'wb_ps_order_submenu' );
 
 
 /**
