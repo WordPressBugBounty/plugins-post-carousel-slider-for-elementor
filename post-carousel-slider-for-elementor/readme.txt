@@ -1,8 +1,8 @@
 Post Carousel Slider for Elementor
-Tags: elementor post carousel, post carousel elementor, elementor post slider, post slider wordpress, post slider, post carousel, wordpress post carousel
+Tags: elementor post carousel, post carousel elementor, elementor post slider, post slider, post carousel
 Requires at least: 5.0
 Tested up to: 6.6.3
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -88,6 +88,13 @@ There is also a [Pro Version](https://plugin-devs.com/product/post-carousel-slid
 3. Screenshot Three
 
 == Changelog ==
+
+= 1.5.0 (01-14-25) =
+# Update some deprecated functions to load the widget
+# Compatible with WordPress Latest Version
+# Compatible with Elementor Latest Version
+# Compatible with Elementor PRO Latest Version
+# Update readme.txt (remove unused tags)
 
 = 1.4.0 (10-01-24) =
 # Compatible with WordPress Latest Version

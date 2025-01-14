@@ -204,9 +204,9 @@ final class WB_PS_UTILS {
 	 *
 	 * @access public
 	 */
-	public function register_widgets() {
+	public function register_widgets( $controls_manager ) {
 		$this->includes();
-		$this->register_slider_widgets();
+		$this->register_slider_widgets( $controls_manager );
 	}
 
 	/**
@@ -233,8 +233,8 @@ final class WB_PS_UTILS {
 	 *
 	 * @access public
 	 */
-	public function register_slider_widgets() {
-		\Elementor\Plugin::instance()->widgets_manager->register( new POST_SLIDER\WB_PS_WIDGET() );
+	public function register_slider_widgets( $controls_manager ) {
+		$controls_manager->register( new POST_SLIDER\WB_PS_WIDGET() );
 	}
 }
 
