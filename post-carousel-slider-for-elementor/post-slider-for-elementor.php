@@ -5,13 +5,13 @@
  * Author: Plugin Devs
  * Author URI: https://plugin-devs.com/
  * Plugin URI: https://plugin-devs.com/product/post-carousel-slider-for-elementor/
- * Version: 1.5.0
+ * Version: 1.6.0
  * License: GPLv2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: post-slider-for-elementor
  * 
- * Elementor tested up to: 3.26.4
- * Elementor Pro tested up to: 3.26.3
+ * Elementor tested up to: 3.28.4
+ * Elementor Pro tested up to: 3.28.3
 */
 
  // Exit if accessed directly.
@@ -48,7 +48,7 @@ class WB_POST_SLIDER
  		define( 'WB_PS_MAIN_FILE', __FILE__ );
  		define( 'WB_PS_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'WB_PS_URL', plugin_dir_url( __FILE__ ) ) ;
-		define( 'WB_PS_VERSION', '1.5.0' ) ; //Plugin Version
+		define( 'WB_PS_VERSION', '1.6.0' ) ; //Plugin Version
 		define( 'WB_PS_MIN_ELEMENTOR_VERSION', '3.0.0' ) ; //MINIMUM ELEMENTOR Plugin Version
 		define( 'WB_PS_MIN_PHP_VERSION', '7.0' ) ; //MINIMUM PHP Plugin Version
 		define( 'WB_PS_PRO_LINK', 'https://plugin-devs.com/product/post-carousel-slider-for-elementor/' ) ; //Pro Link

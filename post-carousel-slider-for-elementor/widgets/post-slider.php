@@ -1168,10 +1168,10 @@ class WB_PS_WIDGET extends \Elementor\Widget_Base
 	        }
 
 	        echo '<div
-	        		class="wbel_post_slider_wrapper wbel_post_slider_'.$template_style.'"
+	        		class="wbel_post_slider_wrapper wbel_post_slider_'.esc_attr($template_style).'"
 	        		id="wbel_post_slider_'.esc_attr($element_id).'"
-	        		data-slide-to-show="'.$slide_to_show.'"
-	        		data-slides-to-scroll="'.$slides_to_scroll.'"
+	        		data-slide-to-show="'.esc_attr($slide_to_show).'"
+	        		data-slides-to-scroll="'.esc_attr($slides_to_scroll).'"
 	        	>';
 	        $post_query = new \WP_Query($args);
 	        if( $post_query->have_posts() ){
