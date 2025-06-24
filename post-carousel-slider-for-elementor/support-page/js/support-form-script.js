@@ -34,12 +34,13 @@
 		$("#wbebaic-support-form #support-form-loading").show();
 		
 		var data = {
-			'action': 'process_wbebaic_promo_form',
+			'action': 'process_wbelps_promo_form',
 			'post_name': name,
 			'post_email': email,
 			'post_subject': subject,
 			'post_message': message,
 			'post_plugin_name': plugin_name,
+			'wbelps_support_form_nonce_field': $('#wbelps_support_form_nonce_field').val()
 		};
 
 		jQuery.post(ajaxurl, data, function(response) {

@@ -5,13 +5,13 @@
  * Author: Plugin Devs
  * Author URI: https://plugin-devs.com/
  * Plugin URI: https://plugin-devs.com/product/post-carousel-slider-for-elementor/
- * Version: 1.6.0
+ * Version: 1.7.0
  * License: GPLv2
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: post-slider-for-elementor
  * 
- * Elementor tested up to: 3.28.4
- * Elementor Pro tested up to: 3.28.3
+ * Elementor tested up to: 3.29.2
+ * Elementor Pro tested up to: 3.29.2
 */
 
  // Exit if accessed directly.
@@ -48,7 +48,7 @@ class WB_POST_SLIDER
  		define( 'WB_PS_MAIN_FILE', __FILE__ );
  		define( 'WB_PS_PATH', plugin_dir_path( __FILE__ ) );
 		define( 'WB_PS_URL', plugin_dir_url( __FILE__ ) ) ;
-		define( 'WB_PS_VERSION', '1.6.0' ) ; //Plugin Version
+		define( 'WB_PS_VERSION', '1.7.0' ) ; //Plugin Version
 		define( 'WB_PS_MIN_ELEMENTOR_VERSION', '3.0.0' ) ; //MINIMUM ELEMENTOR Plugin Version
 		define( 'WB_PS_MIN_PHP_VERSION', '7.0' ) ; //MINIMUM PHP Plugin Version
 		define( 'WB_PS_PRO_LINK', 'https://plugin-devs.com/product/post-carousel-slider-for-elementor/' ) ; //Pro Link
@@ -126,14 +126,20 @@ function wb_ps_order_submenu( $menu_ord ) {
 	//echo '<pre>'; print_r( $submenu['wbel-post-slider'] ); echo '</pre>'; exit();
   
 	$arr = array();
-  
-	$arr[] = $submenu['wbel-post-slider'][1];
-	$arr[] = $submenu['wbel-post-slider'][2];
-	$arr[] = $submenu['wbel-post-slider'][5];
-	$arr[] = $submenu['wbel-post-slider'][4];
-  
-	$submenu['wbel-post-slider'] = $arr;
-  
+	
+	if(
+		isset($submenu['wbel-post-slider']) &&
+		is_array($submenu['wbel-post-slider']) &&
+		!empty($submenu['wbel-post-slider'])
+	){
+
+		$arr[] = $submenu['wbel-post-slider'][1];
+		$arr[] = $submenu['wbel-post-slider'][2];
+		$arr[] = $submenu['wbel-post-slider'][5];
+		$arr[] = $submenu['wbel-post-slider'][4];
+	
+		$submenu['wbel-post-slider'] = $arr;
+	}
 	return $menu_ord;
   
 }

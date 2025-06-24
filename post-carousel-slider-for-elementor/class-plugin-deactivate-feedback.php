@@ -363,9 +363,14 @@ if( ! class_exists( 'WB_PS_Usage_Feedback') ) {
 		 * @since 1.0.0
 		 */
 		public function goodbye_form_callback() {
-			//check_ajax_referer( 'wb_ps_goodbye_form', 'security' );
-			if( isset( $_POST['values'] ) ) {
-				$values = json_encode( wp_unslash( $_POST['values'] ) );
+			check_ajax_referer( 'wb_ps_goodbye_form', 'security' );
+
+			if ( ! current_user_can( 'activate_plugins' ) ) {
+				wp_die( 'You are not allowed to submit this form.' );
+			}
+
+			if( isset( $_POST['values'] ) && is_array($_POST['values']) ) {
+				$values = json_encode( array_map('sanitize_text_field', wp_unslash( $_POST['values'] ) ) );
 				update_option( 'wb_ps_deactivation_reason_' . $this->plugin_name, $values );
 			}
 			if( isset( $_POST['details'] ) ) {

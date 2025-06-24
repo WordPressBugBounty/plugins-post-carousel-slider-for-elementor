@@ -27,7 +27,12 @@ if( !function_exists('process_wbelps_promo_form') )
 {
 	function process_wbelps_promo_form()
 	{
-		
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'You are not allowed to submit this form.' );
+		}
+
+		check_ajax_referer( 'wbelps_support_form_nonce', 'wbelps_support_form_nonce_field' );
+
 		$data['status'] = 'failed';
 		$data['message'] = __('Problem in processing your form submission request! Apologies for the inconveniences.<br> 
 Please email to <span style="color:#22A0C9;font-weight:bold !important;font-size:14px "> webbuilders03@gmail.com </span> with any feedback. We will get back to you right away!', '');
@@ -250,6 +255,8 @@ if( !class_exists('WBELPSSupportPage') ){
 										</div>
 										<div class="support-form">
 											<form class="form" id="wbebaic-support-form" method="POST">
+
+											  <?php wp_nonce_field( 'wbelps_support_form_nonce', 'wbelps_support_form_nonce_field' ); ?>
 
 											  <input name="plugin_name" id="plugin_name" type="hidden" value="<?php echo ( $this->plugin_name != "" ) ? $this->plugin_name : "not-set-via-instance"; ?>"/>
 
