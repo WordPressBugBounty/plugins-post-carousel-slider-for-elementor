@@ -1,47 +1,42 @@
 <?php
 
-/*******************************
- * Add Ajax Object at the head part
- *******************************/
-add_action('wp_head', 'wbelps_support_form_ajax_header');
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
-if( !function_exists('wbelps_support_form_ajax_header') )
-{
-	function wbelps_support_form_ajax_header() 
-	{
+/**
+ * Register support form AJAX handler (admin-only).
+ */
+function wbelps_register_support_ajax_handlers() {
+	add_action( 'wp_ajax_process_wbelps_promo_form', 'process_wbelps_promo_form' );
+}
+add_action( 'admin_init', 'wbelps_register_support_ajax_handlers' );
 
-	   echo '<script type="text/javascript">
-	           var ajaxurl = "' . admin_url('admin-ajax.php') . '";
-	         </script>';
-
-	} //End of wbelps_support_form_ajax_header
-
-} //End of function_exists
-
-/*******************************
- * Handle Ajex Request for Form Processing
- *******************************/
-add_action( 'wp_ajax_process_wbelps_promo_form', 'process_wbelps_promo_form' );
-
-if( !function_exists('process_wbelps_promo_form') )
-{
-	function process_wbelps_promo_form()
-	{
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( 'You are not allowed to submit this form.' );
-		}
-
+if ( ! function_exists( 'process_wbelps_promo_form' ) ) {
+	/**
+	 * Process the plugin support form submission.
+	 */
+	function process_wbelps_promo_form() {
 		check_ajax_referer( 'wbelps_support_form_nonce', 'wbelps_support_form_nonce_field' );
 
-		$data['status'] = 'failed';
-		$data['message'] = __('Problem in processing your form submission request! Apologies for the inconveniences.<br> 
-Please email to <span style="color:#22A0C9;font-weight:bold !important;font-size:14px "> webbuilders03@gmail.com </span> with any feedback. We will get back to you right away!', '');
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json(
+				array(
+					'status'  => 'failed',
+					'message' => __( 'You are not allowed to submit this form.', 'post-slider-for-elementor' ),
+				)
+			);
+		}
 
-		$name = trim(sanitize_text_field($_POST['post_name']));
-		$email = trim(sanitize_email($_POST['post_email']));
-		$subject = trim(sanitize_text_field($_POST['post_subject']));
-		$message = trim(sanitize_text_field($_POST['post_message']));
-		$plugin_name = trim(sanitize_text_field($_POST['post_plugin_name']));
+		$data            = array();
+		$data['status']  = 'failed';
+		$data['message'] = __( 'Problem in processing your form submission request! Apologies for the inconveniences.<br> Please email to <span style="color:#22A0C9;font-weight:bold !important;font-size:14px "> webbuilders03@gmail.com </span> with any feedback. We will get back to you right away!', 'post-slider-for-elementor' );
+
+		$name        = isset( $_POST['post_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['post_name'] ) ) ) : '';
+		$email       = isset( $_POST['post_email'] ) ? trim( sanitize_email( wp_unslash( $_POST['post_email'] ) ) ) : '';
+		$subject     = isset( $_POST['post_subject'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['post_subject'] ) ) ) : '';
+		$message     = isset( $_POST['post_message'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['post_message'] ) ) ) : '';
+		$plugin_name = isset( $_POST['post_plugin_name'] ) ? trim( sanitize_text_field( wp_unslash( $_POST['post_plugin_name'] ) ) ) : '';
 
 		if( $name == "" || $email == "" || $subject == "" || $message == "" )
 		{
@@ -100,12 +95,7 @@ Please email to <span style="color:#22A0C9;font-weight:bold !important;font-size
 
 		}
 
-		ob_clean();
-
-		
-		echo json_encode($data);
-	
-		die();
+		wp_send_json( $data );
 	}
 }
 
@@ -156,7 +146,15 @@ if( !class_exists('WBELPSSupportPage') ){
 			   wp_enqueue_script( 'jquery' );
 			   wp_enqueue_script( 'jquery-ui-core');
 			   wp_enqueue_script( 'jquery-ui-tabs' );
-			   wp_enqueue_script( 'jquery-custom-form-processor', $this->relative_folder_url . '/js/support-form-script.js',  array('jquery', 'jquery-ui-core','jquery-ui-tabs') );
+			   wp_enqueue_script( 'jquery-custom-form-processor', $this->relative_folder_url . '/js/support-form-script.js',  array('jquery', 'jquery-ui-core','jquery-ui-tabs'), WB_PS_VERSION, true );
+
+			   wp_localize_script(
+				   'jquery-custom-form-processor',
+				   'wbelpsSupportForm',
+				   array(
+					   'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				   )
+			   );
 
 			   wp_enqueue_style('wl_support_font', "https://fonts.googleapis.com/css?family=Lato");
 			   wp_enqueue_style('wl_font_awesome', $this->relative_folder_url. "/css/font-awesome.min.css");

@@ -43,7 +43,9 @@
 			'wbelps_support_form_nonce_field': $('#wbelps_support_form_nonce_field').val()
 		};
 
-		jQuery.post(ajaxurl, data, function(response) {
+		var ajaxUrl = ( typeof wbelpsSupportForm !== 'undefined' && wbelpsSupportForm.ajaxurl ) ? wbelpsSupportForm.ajaxurl : ajaxurl;
+
+		jQuery.post(ajaxUrl, data, function(response) {
 			var json = $.parseJSON(response);
 			
 			$("#wbebaic-support-form #support-form-loading").hide();

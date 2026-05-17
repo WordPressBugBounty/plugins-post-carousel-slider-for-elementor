@@ -1,9 +1,13 @@
 <?php
- /**
-  * Plugin Review Class
-  */
- 
- class PDPCS_Review
+/**
+ * Plugin Review Class
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+class PDPCS_Review
  {
  	public $plugin_name='';
  	public $transient_name='';
@@ -31,6 +35,10 @@
 	 * @access public
 	 */
 	public function leave_a_review() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$review_transient = get_transient($this->transient_name);
 		// delete_transient($this->transient_name);
 		$current_time = current_time('timestamp');
@@ -61,16 +69,19 @@
 	 *
 	 * @access public
 	 */
-	public function set_review_transient(){
-		if ( is_admin() ) {
-			$set_review_transient = get_transient( $this->transient_name );
-			if( $set_review_transient  != 'reviewed' ){
-				if( set_transient( $this->transient_name , 'reviewed', 1*YEAR_IN_SECONDS ) ){
-					echo 'already_reviewed';
-				}
-			}
-			wp_die();
+	public function set_review_transient() {
+		check_ajax_referer( 'wb_ps_review_dismiss', 'nonce' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( null, 403 );
 		}
+
+		$set_review_transient = get_transient( $this->transient_name );
+		if ( 'reviewed' !== $set_review_transient ) {
+			set_transient( $this->transient_name, 'reviewed', YEAR_IN_SECONDS );
+		}
+
+		wp_send_json_success( 'already_reviewed' );
 	}
 
 	/**
@@ -80,7 +91,10 @@
 	 *
 	 * @access public
 	 */
-	public function review_script(){
+	public function review_script() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 		?>
 			<script>
 				jQuery(document).ready(function(){
@@ -89,9 +103,10 @@
 						var _this = this;
 						jQuery.ajax({
 							type: 'post',
-							url: '<?php echo admin_url( "admin-ajax.php" ); ?>',
+							url: '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>',
 							data: {
 								action: 'wb_ps_review_transient',
+								nonce: '<?php echo esc_js( wp_create_nonce( 'wb_ps_review_dismiss' ) ); ?>',
 							},
 							success: function( result ){
 								jQuery(_this).parents('.notice').slideUp();

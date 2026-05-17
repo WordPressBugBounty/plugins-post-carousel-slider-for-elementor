@@ -113,7 +113,15 @@ function wb_ps_custom_css_js_scripts( $hook ) {
 
 add_action( 'admin_init', 'wb_ps_register_custom_css_setting' ); 
 function wb_ps_register_custom_css_setting() {
-    register_setting( 'wb_ps_custom_css', 'wb_ps_custom_css',  'wb_ps_custom_css_validation');
+    register_setting(
+		'wb_ps_custom_css',
+		'wb_ps_custom_css',
+		array(
+			'type'              => 'string',
+			'sanitize_callback' => 'wb_ps_custom_css_validation',
+			'capability'        => 'manage_options',
+		)
+	);
 }
 
 function wb_ps_custom_css_validation( $input ) {

@@ -1,9 +1,9 @@
 Post Carousel Slider for Elementor
 Tags: elementor post carousel, post carousel elementor, elementor post slider, post slider, post carousel
 Requires at least: 5.0
-Tested up to: 6.8.1
-Stable tag: 1.7.0
-Requires PHP: 7.2
+Tested up to: 6.9.4
+Stable tag: /trunk
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Contributors: plugindevs
@@ -88,6 +88,13 @@ There is also a [Pro Version](https://plugin-devs.com/product/post-carousel-slid
 3. Screenshot Three
 
 == Changelog ==
+= 1.8.0 (05-17-26) =
+# Security: Harden support form AJAX with capability check, nonce verification, and admin-only registration (CVE-2025-3863, CVE-2025-57955)
+# Security: Remove public ajaxurl exposure from wp_head on the support form
+# Security: Add authorization and nonce checks to review notice dismiss AJAX handler
+# Security: Restrict custom CSS settings updates to manage_options capability
+# Maintenance release
+# Compatibility update
 
 = 1.7.0 (06-23-25) =
 # Fix WordFence Stated Security and Vulnerability issues
